@@ -1,0 +1,67 @@
+<html>
+
+  <head>
+    <title>IN MY TZ</title>
+    <style>
+      body {
+        text-align: center;
+        padding: 7% 0 7% 0;
+        font-family: Verdana;
+        background: #fafafa;
+      }
+
+      div,
+      input {
+        margin-top: 2%;
+        margin-bottom: 2%
+      }
+
+      #create {
+        margin-top: 20%;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div id="dt"></div>
+    <div id="tm"></div>
+    <div id="create">
+      <label for="gen">Generate Link <br> </label>
+      <input type="datetime-local" id="gen" name="gendtm" onchange="genCopy()"><br>
+      <button id="btn">Copy</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    <script>
+    	const urlParams = new URLSearchParams(window.location.search);
+	const d = new Date();
+      let off = d.getTimezoneOffset();
+      if (urlParams.has('t')){
+      	let time = urlParams.get("t") - 60000 * off;
+      	d.setTime(time);
+      }
+      var options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      };
+      let dt = d.toLocaleDateString('en-US', options);
+      let tm = d.toLocaleTimeString();
+      document.getElementById("dt").innerHTML = dt;
+      document.getElementById("tm").innerHTML = tm;
+
+      function genCopy() {
+        let gt = Date.parse(document.getElementById("gen").value) + 60000 * off;
+        let gd = "https://inmytz.github.io/index.html?t=" + gt.toString();
+        document.getElementById("btn").setAttribute("data-clipboard-text", gd);
+      }
+      new ClipboardJS('#btn');
+
+    </script>
+
+
+
+  </body>
+
+</html>
