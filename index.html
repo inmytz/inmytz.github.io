@@ -2,6 +2,7 @@
 
   <head>
     <title>IN MY TZ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
       body {
         text-align: center;
@@ -53,7 +54,7 @@
 
       function genCopy() {
         let gt = Date.parse(document.getElementById("gen").value) + 60000 * off;
-        let gd = "https://inmytz.github.io/index.html?t=" + gt.toString();
+        let gd = "https://inmytz.github.io?t=" + gt.toString();
         document.getElementById("btn").setAttribute("data-clipboard-text", gd);
       }
       new ClipboardJS('#btn');
