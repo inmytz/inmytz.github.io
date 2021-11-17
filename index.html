@@ -1,71 +1,84 @@
 <html>
-   <head>
-      <title>IN MY TZ</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <style>
-         body {
-         text-align: center;
-         padding: 10vh 0 10vh 0;
-         font-family: Verdana;
-         background: #fafafa;
-         }
-         div {
-         margin-top: 2%;
-         margin-bottom: 2%
-         }
-         #create {
-         margin-top: 50vh;
-         }
-      </style>
-   </head>
-   <body>
-      <div id="dt"></div>
-      <div id="tm"></div>
-      <div id="create">
-         <label for="gen">Generate Link </label>
-      </div>
-      <div><input type="datetime-local" id="gen" name="gendtm" onchange="genCopy()"></div>
-      <div><button id="btn">Copy</button></div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
-      <script>
-         const urlParams = new URLSearchParams(window.location.search);
-               var options = {
-             weekday: 'long',
-             year: 'numeric',
-             month: 'long',
-             day: 'numeric'
-           };
-         let d = new Date();
-         let c = 1;
-           let off = d.getTimezoneOffset();
-           if (urlParams.has('t')){
-           	let time = urlParams.get("t") - 60000 * off;
-           	d.setTime(time);
-         let dt = d.toLocaleDateString('en-US', options);
-           let tm = d.toLocaleTimeString();
-           document.getElementById("dt").innerHTML = dt;
-           document.getElementById("tm").innerHTML = tm;
-           } else {
-           setInterval(setClock, 1000);
-           }
-         
-           
-           function setClock(c) {
-           let d = new Date();
-           let dt = d.toLocaleDateString('en-US', options);
-           let tm = d.toLocaleTimeString();
-           document.getElementById("dt").innerHTML = dt;
-           document.getElementById("tm").innerHTML = tm;
-           }
-         
-           function genCopy() {
-             let gt = Date.parse(document.getElementById("gen").value) + 60000 * off;
-             let gd = "https://inmytz.github.io?t=" + gt.toString();
-             document.getElementById("btn").setAttribute("data-clipboard-text", gd);
-           }
-         
-           new ClipboardJS('#btn');
-         
-      </script>
-   </body>
+
+<head>
+    <title>IN MY TZ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            text-align: center;
+            padding: 10vh 0 10vh 0;
+            font-family: Verdana;
+            background-color: #FFDEE9;
+            background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+
+        }
+
+        div {
+            margin-top: 2%;
+            margin-bottom: 2%
+        }
+
+        #create {
+            margin-top: 50vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="dt"></div>
+    <div id="tm"></div>
+    <div id="create">
+        <label for="gen">Generate Link </label>
+    </div>
+    <div><input type="datetime-local" id="gen" name="gendtm" onchange="genCopy()"></div>
+    <div><button id="btn">Copy</button></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        var options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
+        let d = new Date();
+        let c = 1;
+        let off = d.getTimezoneOffset();
+
+        function setDisplay(d) {
+            let dt = d.toLocaleDateString('en-US', options);
+            let tm = d.toLocaleTimeString();
+            document.getElementById("dt").innerHTML = dt;
+            document.getElementById("tm").innerHTML = tm;
+        }
+
+        function setClock() {
+            let d = new Date();
+            setDisplay(d);
+        }
+
+        if (urlParams.has('t')) {
+            let time = urlParams.get("t") - 60000 * off;
+            d.setTime(time);
+            setDisplay(d);
+        } else {
+            setDisplay(d);
+            setInterval(setClock, 1000);
+        }
+
+
+
+        function genCopy() {
+            let gt = Date.parse(document.getElementById("gen").value) + 60000 * off;
+            let gd = "https://inmytz.github.io?t=" + gt.toString();
+            document.getElementById("btn").setAttribute("data-clipboard-text", gd);
+        }
+
+        new ClipboardJS('#btn');
+    </script>
+
+
+
+</body>
+
 </html>
