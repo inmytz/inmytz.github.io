@@ -58,7 +58,6 @@
         }
 
         if (urlParams.has('t')) {
-            let time = urlParams.get("t") - 60000 * off;
             d.setTime(time);
             setDisplay(d);
         } else {
