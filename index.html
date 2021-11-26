@@ -42,7 +42,6 @@
             day: 'numeric'
         };
         let d = new Date();
-        let c = 1;
         let off = d.getTimezoneOffset();
 
         function setDisplay(d) {
@@ -58,7 +57,7 @@
         }
 
         if (urlParams.has('t')) {
-            let time = urlParams.get("t")
+            let time = urlParams.get("t") - (60000 * off);
             d.setTime(time);
             setDisplay(d);
         } else {
