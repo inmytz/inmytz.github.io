@@ -57,7 +57,7 @@
         }
 
         if (urlParams.has('t')) {
-            let time = urlParams.get("t") - (30000 * off);
+            let time = urlParams.get("t") - (60000 * off);
             d.setTime(time);
             setDisplay(d);
         } else {
@@ -68,7 +68,7 @@
 
 
         function genCopy() {
-            let gt = Date.parse(document.getElementById("gen").value) + 60000 * off;
+            let gt = Date.parse(document.getElementById("gen").value);
             let gd = "https://inmytz.github.io?t=" + gt.toString();
             document.getElementById("btn").setAttribute("data-clipboard-text", gd);
         }
