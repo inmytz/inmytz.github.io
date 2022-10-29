@@ -62,7 +62,7 @@
         }
 
         if (urlParams.has('t')) {
-            let time = urlParams.get("t")
+            let time = urlParams.get("t") - 60000 * urlParams.get("o");
             d.setTime(time);
             setDisplay(d);
         } else {
@@ -74,7 +74,7 @@
 
         function genCopy() {
             let gt = Date.parse(document.getElementById("gen").value);
-            let gd = "https://inmytz.github.io?t=" + gt.toString();
+            let gd = "https://inmytz.github.io?t=" + gt.toString() + "&o=" + off.toString();
             document.getElementById("btn").setAttribute("data-clipboard-text", gd);
         }
 
